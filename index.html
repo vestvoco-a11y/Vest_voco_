@@ -1,0 +1,1023 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#171421">
+<title>VEST_VOCO | Boys Streetwear</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f5f3ef;--dark:#171421;--gold:#f2c16b;--white:#fff;--muted:#85838a;--green:#168c58;--line:#e9e6e0}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--dark)}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+header{background:var(--dark);color:white;position:sticky;top:0;z-index:30;padding:14px 16px 0;box-shadow:0 3px 15px #0002}
+.topbar{display:flex;align-items:center;gap:12px}
+.logo{font-size:23px;font-weight:900;white-space:nowrap}
+.logo span,.detail-logo span,footer h2 span{color:var(--gold)}
+.search{flex:1;min-width:0;background:white;border-radius:10px;padding:11px;color:#777}
+.search input{width:100%;border:0;outline:0;font-size:13px}
+.header-actions{display:flex;gap:9px}
+.header-action{width:40px;height:40px;border:0;border-radius:50%;background:#ffffff18;color:white;position:relative;display:grid;place-items:center}
+.header-action svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2}
+.count{position:absolute;top:-5px;right:-5px;background:var(--gold);color:var(--dark);width:18px;height:18px;border-radius:50%;font-size:11px;display:grid;place-items:center;font-weight:bold}
+.categories{display:flex;gap:27px;overflow-x:auto;scrollbar-width:none;padding:18px 0 12px}
+.categories::-webkit-scrollbar{display:none}
+.categories button{border:0;background:none;color:#d8d5dd;font-size:14px;white-space:nowrap;padding-bottom:8px}
+.categories button.active{color:white;border-bottom:3px solid var(--gold);font-weight:bold}
+.hero{margin:18px 14px 15px;border-radius:22px;min-height:370px;overflow:hidden;background:linear-gradient(90deg,#171421ed,#171421a8 48%,#17142120),url("https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=1400") center/cover;color:white;display:flex;align-items:center;padding:28px}
+.hero-content{max-width:390px}
+.hero small{color:var(--gold);letter-spacing:3px;font-weight:bold}
+.hero h1{font-size:clamp(40px,8vw,58px);line-height:1.02;margin:20px 0;font-weight:900}
+.hero p{line-height:1.7;color:#eee}
+.primary-btn{background:var(--gold);color:var(--dark);border:0;padding:16px 24px;font-weight:bold;border-radius:9px;margin-top:22px}
+.promo{margin:18px 14px 26px;padding:20px 15px;border-radius:14px;color:white;text-align:center;background:linear-gradient(110deg,#7653db,#a66cdb);font-size:14px;font-weight:bold}
+.section{padding:12px 15px 30px}
+.section-heading{display:flex;align-items:center;justify-content:space-between;margin:14px 0 18px}
+.section-heading h2{font-size:23px}
+.section-heading span{color:var(--muted);font-size:13px}
+.filterbar{margin:12px 0 18px}
+.filterbar select{width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;background:white}
+.product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.product-card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 4px 16px #1714210c;min-width:0}
+.product-photo{aspect-ratio:1/1.05;position:relative;overflow:hidden;background:#e8e6e2;cursor:pointer}
+.product-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.product-tag{position:absolute;left:9px;top:9px;background:var(--gold);color:#30210b;font-size:10px;font-weight:bold;padding:6px 9px;border-radius:5px}
+.heart{position:absolute;right:9px;top:9px;border:0;width:38px;height:38px;border-radius:50%;background:#ffffffed;font-size:22px;color:#222;display:grid;place-items:center}
+.heart.active{color:#e34c70}
+.product-info{padding:12px}
+.product-brand{color:#99702c;font-size:10px;font-weight:bold;letter-spacing:1px}
+.product-name{font-size:14px;line-height:1.4;margin:7px 0;min-height:39px}
+.product-price{font-size:18px;font-weight:900}
+.old-price{font-size:12px;font-weight:normal;color:#999;text-decoration:line-through;margin-left:5px}
+.stock{color:var(--green);font-size:11px;font-weight:bold;margin-top:8px}
+.view-btn{width:100%;margin-top:12px;padding:11px 5px;border:0;border-radius:8px;background:#f4ead8;color:#6b4a18;font-size:12px;font-weight:bold}
+.empty,.shop-empty{grid-column:1/-1;text-align:center;padding:55px 10px;color:#777}
+.shop-page{display:none;position:fixed;inset:0;z-index:50;background:var(--bg);overflow-y:auto}
+.shop-page-header{background:var(--dark);color:white;padding:17px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:10}
+.shop-page-header button{border:0;background:none;color:white;font-size:27px}
+.shop-page-header h2{font-size:19px;flex:1}
+.shop-page-header span{color:var(--gold)}
+.shop-page-content{padding:16px;padding-bottom:40px}
+.shop-page-info{display:flex;align-items:center;justify-content:space-between;margin:12px 0 18px}
+.shop-page-info h3{font-size:19px}
+.shop-page-info small{color:#888}
+.shop-empty{padding:65px 15px}
+.shop-empty .empty-icon{font-size:45px;margin-bottom:15px;color:#e34c70}
+.shop-empty button{background:var(--gold);border:0;padding:13px 20px;border-radius:8px;margin-top:18px;font-weight:bold}
+.remove-fav{width:100%;border:0;background:#fff0f2;color:#d33;padding:10px;border-radius:8px;margin-top:8px;font-size:12px;font-weight:bold}
+.cart-controls{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.cart-controls button{width:30px;height:30px;border:1px solid #ddd;border-radius:7px;background:white}
+.cart-controls .remove-cart{width:auto;border:0;color:#d33;background:#fff0f0;padding:0 10px;font-size:11px}
+.cart-item-size{font-size:12px;color:#777;margin-top:7px}
+.cart-subtotal{font-weight:bold;margin-top:10px;font-size:14px}
+footer{background:var(--dark);color:white;padding:38px 20px 30px;text-align:center;margin-top:25px}
+footer h2{font-size:27px}
+footer p{color:#aaa;font-size:13px;margin-top:12px}
+.footer-links{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin:23px 0}
+.footer-links a{color:var(--gold);font-size:14px}
+.whatsapp-float{position:fixed;right:17px;bottom:20px;z-index:25;background:#20c968;color:white;padding:15px 22px;border-radius:35px;font-weight:bold}
+.detail{display:none;position:fixed;inset:0;z-index:60;background:var(--bg);overflow-y:auto}
+.detail-top{background:var(--dark);color:white;display:flex;align-items:center;gap:15px;padding:15px;position:sticky;top:0;z-index:5}
+.back{border:0;background:none;color:white;font-size:27px}
+.detail-logo{font-weight:900;font-size:19px}
+.detail-photo{position:relative;width:100%;max-height:520px;aspect-ratio:1/1;background:#e9e7e3}
+.detail-photo img{width:100%;height:100%;object-fit:contain}
+.gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);border:0;border-radius:50%;background:#ffffffdf;width:42px;height:42px;font-size:25px}
+.gallery-arrow.left{left:12px}
+.gallery-arrow.right{right:12px}
+.gallery-count{position:absolute;bottom:12px;right:12px;background:#171421dd;color:white;padding:7px 12px;border-radius:20px;font-size:12px}
+.gallery-thumbnails{display:flex;gap:11px;padding:14px;background:white;overflow-x:auto}
+.gallery-thumb{width:70px;height:78px;flex-shrink:0;border:2px solid transparent;border-radius:9px;padding:3px;background:white;overflow:hidden}
+.gallery-thumb.active{border-color:#a66cdb}
+.gallery-thumb img{width:100%;height:100%;object-fit:cover;border-radius:6px}
+.dots{display:flex;justify-content:center;gap:8px;padding:10px;background:white}
+.dot{border:0;width:9px;height:9px;border-radius:20px;background:#ccc}
+.dot.active{width:23px;background:#b58b45}
+.detail-content{background:white;padding:22px 18px 120px}
+.detail-brand{color:#99702c;font-weight:bold;font-size:12px;letter-spacing:1px}
+.detail-title-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.detail-name{font-size:21px;margin:12px 0}
+.detail-actions{display:flex;gap:9px;flex-shrink:0}
+.detail-actions button{border:0;background:#f5f3ef;width:40px;height:40px;border-radius:50%;font-size:20px}
+.detail-actions .active{color:#e34c70}
+.detail-price{font-size:29px;font-weight:900;margin:12px 0}
+.detail-old{font-size:16px;color:#999;text-decoration:line-through;font-weight:normal;margin-left:8px}
+.detail-stock{color:var(--green);font-size:13px;font-weight:bold;margin:15px 0}
+.description{color:#777;font-size:14px;line-height:1.7;margin:18px 0}
+.detail-heading{font-size:16px;font-weight:bold;margin:23px 0 13px}
+.sizes{display:flex;gap:12px}
+.sizes button{width:52px;height:48px;border:1px solid #ccc;background:white;border-radius:8px;font-weight:bold}
+.sizes button.selected{background:var(--dark);color:white}
+.quantity{display:flex;align-items:center;gap:15px}
+.quantity button{border:1px solid #ddd;background:white;width:36px;height:36px;border-radius:7px;font-size:20px}
+.details-box{white-space:pre-line;background:#f7f5f1;padding:15px;border-radius:10px;color:#666;font-size:13px;line-height:1.8}
+.similar-section{background:white;padding:18px;margin-top:10px}
+.similar-section h3{font-size:17px;margin-bottom:14px}
+.similar-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.similar-card{border:1px solid #eee;border-radius:12px;overflow:hidden;background:white;cursor:pointer}
+.similar-card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.similar-card div{padding:10px;font-size:13px;font-weight:bold}
+.similar-card small{display:block;color:#99702c;margin-top:6px}
+.order-bottom{position:fixed;bottom:0;left:0;width:100%;display:flex;gap:8px;padding:11px;background:white;box-shadow:0 -4px 18px #0001;z-index:70}
+.order-bottom button{flex:1;border:0;border-radius:9px;padding:15px 4px;font-weight:bold;font-size:13px}
+.add-btn{background:#f4e5c8;color:#33230c}
+.order-btn{background:#168c58;color:white}
+.overlay{display:none;position:fixed;inset:0;background:#0008;z-index:100;align-items:center;justify-content:center;padding:15px}
+.modal{width:100%;max-width:470px;max-height:90vh;overflow:auto;background:white;border-radius:17px;padding:21px}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.modal-head button{border:0;background:none;font-size:25px}
+.form-field{margin:13px 0}
+.form-field label{display:block;font-size:13px;font-weight:bold;margin-bottom:7px}
+.form-field input,.form-field textarea{width:100%;border:1px solid #ddd;border-radius:8px;padding:12px;outline:none}
+.form-field textarea{min-height:80px}
+.submit-btn{width:100%;padding:15px;background:#168c58;color:white;border:0;border-radius:9px;font-weight:bold;margin-top:12px}
+
+@media(min-width:750px){
+header{padding-left:35px;padding-right:35px}
+.hero{margin:28px 35px;min-height:470px;padding:50px}
+.hero h1{font-size:65px}
+.section{padding-left:35px;padding-right:35px}
+.product-grid{grid-template-columns:repeat(4,1fr);gap:22px}
+.shop-page-content{padding:25px 35px}
+.promo{margin-left:35px;margin-right:35px}
+.detail{max-width:850px;left:50%;transform:translateX(-50%)}
+}
+@media(max-width:380px){
+.logo{font-size:18px}
+.header-action{width:34px;height:34px}
+.hero{min-height:330px;padding:22px}
+.hero h1{font-size:39px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="topbar">
+<div class="logo">VEST_<span>VOCO.</span></div>
+<div class="search"><input id="searchInput" placeholder="Search for products..." oninput="renderProducts()"></div>
+<div class="header-actions">
+<button class="header-action" onclick="showWishlist()" title="Favourite">
+<svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg>
+<span class="count" id="wishCount">0</span>
+</button>
+
+<button class="header-action" onclick="openCart()" title="Shopping Cart">
+<svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+<span class="count" id="cartCount">0</span>
+</button>
+</div>
+</div>
+
+<nav class="categories">
+<button class="active" onclick="filterCategory('all',this)">For You</button>
+<button onclick="filterCategory('shirts',this)">Shirts</button>
+<button onclick="filterCategory('tshirts',this)">T-Shirts</button>
+<button onclick="filterCategory('pants',this)">Jeans</button>
+<button onclick="filterCategory('hoodies',this)">Hoodies</button>
+<button onclick="filterCategory('others',this)">Others</button>
+</nav>
+</header>
+
+<section class="hero">
+<div class="hero-content">
+<small>VEST_VOCO NEW COLLECTION</small>
+<h1>OWN YOUR<br>EVERYDAY<br>FIT.</h1>
+<p>Discover your style. Explore modern boys streetwear.</p>
+<button class="primary-btn" onclick="goToShop()">SHOP NOW →</button>
+</div>
+</section>
+
+<div class="promo">✦ FRESH STYLES · NEW ARRIVALS · EVERYDAY FASHION ✦</div>
+
+<section class="section" id="shop">
+<div class="section-heading">
+<h2 id="shopHeading">TRENDING COLLECTION</h2>
+<span id="productCount">0 products</span>
+</div>
+
+<div class="filterbar">
+<select id="sortSelect" onchange="renderProducts()">
+<option value="featured">Featured</option>
+<option value="low">Price: Low to High</option>
+<option value="high">Price: High to Low</option>
+<option value="name">Name: A to Z</option>
+</select>
+</div>
+
+<div class="product-grid" id="productGrid"></div>
+</section>
+
+<footer>
+<h2>VEST <span>VOCO.</span></h2>
+<p>STYLE THAT SPEAKS FOR YOU.</p>
+<p>Calicut, Charoo Pa · Delivery across Kerala</p>
+<div class="footer-links">
+<a id="footerWhatsApp" href="#">WhatsApp</a>
+<a id="footerInstagram" href="#" target="_blank">Instagram</a>
+<a id="footerPhone" href="#">Call Us</a>
+</div>
+<p>© 2026 VEST VOCO. All Rights Reserved.</p>
+</footer>
+
+<a class="whatsapp-float" id="floatingWhatsApp" href="#" target="_blank">WhatsApp</a>
+
+<div class="shop-page" id="wishlistPage">
+<div class="shop-page-header">
+<button onclick="closeWishlist()">←</button>
+<h2>MY <span>FAVOURITES.</span></h2>
+</div>
+<div class="shop-page-content">
+<div class="shop-page-info">
+<h3>YOUR SAVED ITEMS</h3>
+<small id="wishlistProductCount">0 items</small>
+</div>
+<div class="product-grid" id="wishlistGrid"></div>
+</div>
+</div>
+
+<div class="shop-page" id="cartPage">
+<div class="shop-page-header">
+<button onclick="closeCartPage()">←</button>
+<h2>MY <span>SHOPPING BAG.</span></h2>
+</div>
+<div class="shop-page-content">
+<div class="shop-page-info">
+<h3>YOUR CART</h3>
+<small id="cartProductCount">0 items</small>
+</div>
+<div class="product-grid" id="cartGrid"></div>
+<div id="cartPageTotal" style="background:white;padding:18px;border-radius:12px;margin-top:20px"></div>
+<button class="submit-btn" onclick="checkoutCart()">ORDER CART ON WHATSAPP →</button>
+</div>
+</div>
+
+<div class="detail" id="detailPage">
+<div class="detail-top">
+<button class="back" onclick="closeDetails()">←</button>
+<div class="detail-logo">VEST <span>VOCO.</span></div>
+</div>
+
+<div class="detail-photo">
+<img id="detailImage" src="" alt="Product image">
+<button class="gallery-arrow left" onclick="changeImage(-1)">‹</button>
+<button class="gallery-arrow right" onclick="changeImage(1)">›</button>
+<div class="gallery-count" id="imageCount">1/1</div>
+</div>
+
+<div class="gallery-thumbnails" id="galleryThumbnails"></div>
+<div class="dots" id="galleryDots"></div>
+
+<div class="detail-content">
+<div class="detail-brand" id="detailBrand"></div>
+
+<div class="detail-title-row">
+<h2 class="detail-name" id="detailName"></h2>
+<div class="detail-actions">
+<button id="detailFavorite" onclick="toggleDetailFavorite()" aria-label="Favourite">♡</button>
+<button onclick="shareProduct()" aria-label="Share product">↗</button>
+</div>
+</div>
+
+<div class="detail-price">
+<span id="detailPrice"></span>
+<span class="detail-old" id="detailOld"></span>
+</div>
+
+<div class="detail-stock" id="detailStock"></div>
+<p class="description" id="detailDescription"></p>
+
+<div class="detail-heading">SELECT YOUR SIZE</div>
+<div class="sizes" id="sizeOptions"></div>
+
+<div class="detail-heading">QUANTITY</div>
+<div class="quantity">
+<button onclick="changeQuantity(-1)">−</button>
+<strong id="quantityValue">1</strong>
+<button onclick="changeQuantity(1)">+</button>
+</div>
+
+<div class="detail-heading">PRODUCT DETAILS</div>
+<div class="details-box" id="extraDetails"></div>
+
+<div class="detail-heading">DELIVERY</div>
+<div class="details-box">Delivery available across Kerala. Delivery charges and estimated delivery time will be confirmed by the store on WhatsApp.</div>
+</div>
+
+<section class="similar-section">
+<h3>YOU MAY ALSO LIKE</h3>
+<div class="similar-grid" id="similarProducts"></div>
+</section>
+
+<div class="order-bottom">
+<button class="add-btn" onclick="addToCart()">ADD TO CART</button>
+<button class="order-btn" onclick="buyNow()">BUY NOW</button>
+</div>
+</div>
+
+<div class="overlay" id="checkoutOverlay">
+<div class="modal">
+<div class="modal-head">
+<h2>ORDER DETAILS</h2>
+<button onclick="closeModal('checkoutOverlay')">×</button>
+</div>
+
+<div class="form-field">
+<label>Your Name</label>
+<input id="customerName" placeholder="Enter your name">
+</div>
+
+<div class="form-field">
+<label>Phone Number</label>
+<input id="customerPhone" type="tel" placeholder="Your phone number">
+</div>
+
+<div class="form-field">
+<label>Delivery Address</label>
+<textarea id="customerAddress" placeholder="House name, place, district, PIN code"></textarea>
+</div>
+
+<div class="form-field">
+<label>Additional Note</label>
+<textarea id="customerNote" placeholder="Any extra details"></textarea>
+</div>
+
+<button class="submit-btn" onclick="sendWhatsAppOrder()">CONTINUE TO WHATSAPP</button>
+<p style="font-size:11px;color:#888;margin-top:12px;line-height:1.5">Your order details will be sent to the store through WhatsApp. The store must confirm availability and delivery.</p>
+</div>
+</div>
+
+<script>
+/* EDIT HERE: BUSINESS SETTINGS */
+const BRAND_NAME="VEST_VOCO";
+const WHATSAPP_NUMBER="9249033775";
+const PHONE_NUMBER="9249033775";
+const INSTAGRAM_LINK="https://instagram.com/vest_voco";
+const AVAILABLE_TEXT="✓ Available for order";
+
+/* EDIT HERE: PRODUCTS */
+const products=[
+{id:1,brand:"VEST VOCO",name:"Classic White Shirt",price:599,oldPrice:899,category:"shirts",images:["https://i.ibb.co/xSBHyDc1/instagram-photo-1793896755.webp","https://images.unsplash.com/photo-1603252109303-2751441dd157?w=900"],sizes:["S","M","L"],status:"",description:"Classic white shirt with a clean modern look. A versatile style for everyday wear.",extra:"Category: Men's Shirt\nStyle: Casual / Formal\nColour: White\nSizes: S, M, L"},
+
+{id:2,brand:"VEST VOCO",name:"Premium Blue Shirt",price:699,oldPrice:999,category:"shirts",images:["https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=900","https://images.unsplash.com/photo-1603252109303-2751441dd157?w=900"],sizes:["S","M","L"],status:"",description:"A stylish blue shirt designed for a smart everyday look.",extra:"Category: Men's Shirt\nStyle: Casual\nColour: Blue\nSizes: S, M, L"},
+
+{id:3,brand:"VEST VOCO",name:"Brown Casual Shirt",price:749,oldPrice:1099,category:"shirts",images:["https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=900"],sizes:["S","M","L"],status:"",description:"A modern casual shirt with a premium appearance.",extra:"Category: Men's Shirt\nStyle: Casual\nSizes: S, M, L"},
+
+{id:4,brand:"VEST VOCO",name:"Green Casual T-Shirt",price:449,oldPrice:699,category:"tshirts",images:["https://i.ibb.co/vvV4nGc4/instagram-photo-1793896753.webp"],sizes:["S","M","L"],status:"",description:"Fresh casual style with a comfortable everyday design.",extra:"Category: T-Shirt\nStyle: Casual\nColour: Green\nSizes: S, M, L"},
+
+{id:5,brand:"VEST VOCO",name:"Classic Denim Jeans",price:899,oldPrice:1299,category:"pants",images:["https://i.ibb.co/knM2MfX/instagram-photo-1793896748.webp"],sizes:["S","M","L"],status:"",description:"Classic denim style for everyday fashion.",extra:"Category: Jeans\nStyle: Casual\nSizes: S, M, L"},
+
+{id:6,brand:"VEST VOCO",name:"Premium Black Hoodie",price:999,oldPrice:1499,category:"hoodies",images:["https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=900"],sizes:["S","M","L"],status:"",description:"Modern hoodie with a clean streetwear look.",extra:"Category: Hoodie\nStyle: Streetwear\nColour: Black\nSizes: S, M, L"},
+
+{id:7,brand:"VEST VOCO",name:"Brown Casual Shirt",price:749,oldPrice:1099,category:"shirts",images:["https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=900"],sizes:["free size"],status:"",description:"A modern casual shirt with a premium appearance.",extra:"Category: Men's Shirt\nStyle: Casual\nSizes: S, M, L"},
+
+{id:8,brand:"VEST VOCO",name:"Streetwear Collection",price:299,oldPrice:599,category:"others",images:["https://i.ibb.co/pvJq4pJv/1793895115913.jpg","https://i.ibb.co/pvJq4pJv/1793895115913.jpg"],sizes:["free size"],status:"",description:"A fashionable streetwear-inspired look.",extra:"Category: Fashion\nStyle: Streetwear\nSizes: free size"}
+];
+
+let currentCategory="all";
+let selectedProduct=null;
+let selectedSize="";
+let currentImage=0;
+let quantity=1;
+let detailReturnTo="home";
+let orderMode="single";
+
+let wishlist=loadStorage("vestVocoWishlist");
+let cart=loadStorage("vestVocoCart");
+
+const grid=document.getElementById("productGrid");
+
+function loadStorage(key){
+try{
+const value=JSON.parse(localStorage.getItem(key)||"[]");
+return Array.isArray(value)?value:[];
+}catch(error){
+return [];
+}
+}
+
+function money(v){
+return "₹"+Number(v).toLocaleString("en-IN");
+}
+
+function saveData(){
+localStorage.setItem("vestVocoWishlist",JSON.stringify(wishlist));
+localStorage.setItem("vestVocoCart",JSON.stringify(cart));
+updateCounts();
+}
+
+function updateCounts(){
+document.getElementById("wishCount").textContent=wishlist.length;
+document.getElementById("cartCount").textContent=cart.reduce((s,i)=>s+i.quantity,0);
+}
+
+function goToShop(){
+document.getElementById("shop").scrollIntoView({behavior:"smooth"});
+}
+
+function filterCategory(category,button){
+currentCategory=category;
+document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
+button.classList.add("active");
+document.getElementById("shopHeading").textContent=category==="all"?"TRENDING COLLECTION":category.toUpperCase();
+renderProducts();
+}
+
+/* ===================================
+   FAVOURITE SYSTEM - UPDATED
+=================================== */
+
+function isFavorite(id){
+return wishlist.includes(Number(id));
+}
+
+function setFavorite(id,active){
+id=Number(id);
+
+if(active){
+if(!isFavorite(id)){
+wishlist.push(id);
+}
+}else{
+wishlist=wishlist.filter(x=>Number(x)!==id);
+}
+
+saveData();
+
+/* Update every visible favourite button */
+refreshFavoriteDisplays();
+}
+
+function toggleWishlist(id){
+setFavorite(id,!isFavorite(id));
+}
+
+function refreshFavoriteDisplays(){
+/* Refresh home product cards */
+renderProducts();
+
+/* Refresh wishlist page */
+renderWishlist();
+
+/* Refresh detail page heart */
+updateDetailFavorite();
+}
+
+/* PRODUCT CARD */
+function createProductCard(p){
+const card=document.createElement("article");
+card.className="product-card";
+
+const photo=document.createElement("div");
+photo.className="product-photo";
+photo.onclick=()=>openDetails(p);
+
+const img=document.createElement("img");
+img.src=p.images[0];
+img.alt=p.name;
+img.loading="lazy";
+img.onerror=()=>{img.style.display="none";photo.style.background="#e8e6e2"};
+photo.appendChild(img);
+
+const tag=document.createElement("span");
+tag.className="product-tag";
+tag.textContent="NEW STYLE";
+photo.appendChild(tag);
+
+const heart=document.createElement("button");
+heart.className="heart";
+heart.type="button";
+heart.setAttribute("aria-label","Toggle favourite");
+
+const updateHeart=()=>{
+const active=isFavorite(p.id);
+heart.innerHTML=active?"♥":"♡";
+heart.classList.toggle("active",active);
+};
+
+updateHeart();
+
+heart.onclick=e=>{
+e.stopPropagation();
+toggleWishlist(p.id);
+};
+
+photo.appendChild(heart);
+
+const info=document.createElement("div");
+info.className="product-info";
+
+const brand=document.createElement("div");
+brand.className="product-brand";
+brand.textContent=p.brand;
+
+const name=document.createElement("h3");
+name.className="product-name";
+name.textContent=p.name;
+
+const price=document.createElement("div");
+price.className="product-price";
+price.textContent=money(p.price);
+
+const old=document.createElement("span");
+old.className="old-price";
+old.textContent=money(p.oldPrice);
+price.appendChild(old);
+
+const stock=document.createElement("div");
+stock.className="stock";
+stock.textContent=p.status||AVAILABLE_TEXT;
+
+const view=document.createElement("button");
+view.className="view-btn";
+view.textContent="VIEW PRODUCT →";
+view.onclick=()=>openDetails(p);
+
+info.append(brand,name,price,stock,view);
+card.append(photo,info);
+
+return card;
+}
+
+function renderProducts(){
+const query=document.getElementById("searchInput").value.toLowerCase();
+const sort=document.getElementById("sortSelect").value;
+
+let filtered=products.filter(p=>
+(currentCategory==="all"||p.category===currentCategory)&&
+(p.name+" "+p.category+" "+p.brand).toLowerCase().includes(query)
+);
+
+if(sort==="low")filtered.sort((a,b)=>a.price-b.price);
+if(sort==="high")filtered.sort((a,b)=>b.price-a.price);
+if(sort==="name")filtered.sort((a,b)=>a.name.localeCompare(b.name));
+
+grid.innerHTML="";
+document.getElementById("productCount").textContent=filtered.length+" products";
+
+if(!filtered.length){
+grid.innerHTML='<div class="empty">No products found.</div>';
+return;
+}
+
+filtered.forEach(p=>grid.appendChild(createProductCard(p)));
+}
+
+/* FAVOURITES PAGE */
+
+function updateDetailFavorite(){
+const b=document.getElementById("detailFavorite");
+if(!selectedProduct||!b)return;
+
+const active=isFavorite(selectedProduct.id);
+b.textContent=active?"♥":"♡";
+b.classList.toggle("active",active);
+}
+
+function toggleDetailFavorite(){
+if(selectedProduct){
+toggleWishlist(selectedProduct.id);
+}
+}
+
+function showWishlist(){
+document.getElementById("wishlistPage").style.display="block";
+document.body.style.overflow="hidden";
+renderWishlist();
+}
+
+function renderWishlist(){
+const g=document.getElementById("wishlistGrid");
+const items=products.filter(p=>isFavorite(p.id));
+
+g.innerHTML="";
+document.getElementById("wishlistProductCount").textContent=items.length+" items";
+
+if(!items.length){
+g.innerHTML='<div class="shop-empty"><div class="empty-icon">♡</div><h3>No Favourite Products Yet</h3><p style="margin-top:10px">Save your favourite styles here.</p><button onclick="closeWishlist()">CONTINUE SHOPPING</button></div>';
+return;
+}
+
+items.forEach(p=>{
+const card=createProductCard(p);
+const remove=document.createElement("button");
+
+remove.className="remove-fav";
+remove.textContent="REMOVE FROM FAVOURITES";
+
+/* Remove directly, do not toggle blindly */
+remove.onclick=()=>{
+setFavorite(p.id,false);
+};
+
+card.querySelector(".product-info").appendChild(remove);
+g.appendChild(card);
+});
+}
+
+function closeWishlist(){
+document.getElementById("wishlistPage").style.display="none";
+document.body.style.overflow="auto";
+}
+
+/* CART */
+
+function openCart(){
+document.getElementById("cartPage").style.display="block";
+document.body.style.overflow="hidden";
+renderCartPage();
+}
+
+function closeCartPage(){
+document.getElementById("cartPage").style.display="none";
+document.body.style.overflow="auto";
+}
+
+function addToCart(){
+if(!selectedProduct)return;
+
+if(!selectedSize){
+alert("Please select your size first.");
+return;
+}
+
+const item=cart.find(i=>i.id===selectedProduct.id&&i.size===selectedSize);
+
+if(item){
+item.quantity+=quantity;
+}else{
+cart.push({id:selectedProduct.id,size:selectedSize,quantity:quantity});
+}
+
+saveData();
+alert("Product added to cart.");
+}
+
+function renderCartPage(){
+const g=document.getElementById("cartGrid");
+g.innerHTML="";
+
+const count=cart.reduce((s,i)=>s+i.quantity,0);
+document.getElementById("cartProductCount").textContent=count+" items";
+
+if(!cart.length){
+g.innerHTML='<div class="shop-empty"><div class="empty-icon">🛒</div><h3>Your Cart Is Empty</h3><p style="margin-top:10px">Explore our latest collection.</p><button onclick="closeCartPage()">CONTINUE SHOPPING</button>';
+}else{
+cart.forEach((item,index)=>{
+const p=products.find(x=>x.id===item.id);
+if(!p)return;
+
+const card=createProductCard(p);
+const info=card.querySelector(".product-info");
+
+const size=document.createElement("div");
+size.className="cart-item-size";
+size.textContent="Size: "+item.size;
+
+const controls=document.createElement("div");
+controls.className="cart-controls";
+
+const minus=document.createElement("button");
+minus.textContent="−";
+minus.onclick=()=>{
+if(item.quantity>1){
+item.quantity--;
+}else{
+cart.splice(index,1);
+}
+saveData();
+renderCartPage();
+};
+
+const qty=document.createElement("strong");
+qty.textContent=item.quantity;
+
+const plus=document.createElement("button");
+plus.textContent="+";
+plus.onclick=()=>{
+if(item.quantity<10)item.quantity++;
+saveData();
+renderCartPage();
+};
+
+const remove=document.createElement("button");
+remove.className="remove-cart";
+remove.textContent="REMOVE";
+remove.onclick=()=>{
+cart.splice(index,1);
+saveData();
+renderCartPage();
+};
+
+controls.append(minus,qty,plus,remove);
+
+const subtotal=document.createElement("div");
+subtotal.className="cart-subtotal";
+subtotal.textContent="Total: "+money(p.price*item.quantity);
+
+info.append(size,controls,subtotal);
+g.appendChild(card);
+});
+}
+
+const total=cart.reduce((s,i)=>{
+const p=products.find(x=>x.id===i.id);
+return s+(p?p.price*i.quantity:0);
+},0);
+
+document.getElementById("cartPageTotal").innerHTML=
+`<div style="display:flex;justify-content:space-between;font-weight:bold;font-size:19px"><span>Subtotal</span><span>${money(total)}</span></div><p style="font-size:12px;color:#888;margin-top:9px">Delivery charges will be confirmed by the store.</p>`;
+
+updateCounts();
+}
+
+/* PRODUCT DETAILS + GALLERY */
+
+function openDetails(p){
+detailReturnTo=
+document.getElementById("wishlistPage").style.display==="block"?"wishlist":
+document.getElementById("cartPage").style.display==="block"?"cart":"home";
+
+selectedProduct=p;
+selectedSize="";
+currentImage=0;
+quantity=1;
+
+document.getElementById("detailBrand").textContent=p.brand||BRAND_NAME;
+document.getElementById("detailName").textContent=p.name;
+document.getElementById("detailPrice").textContent=money(p.price);
+document.getElementById("detailOld").textContent=money(p.oldPrice);
+document.getElementById("detailStock").textContent=p.status||AVAILABLE_TEXT;
+document.getElementById("detailDescription").textContent=p.description;
+document.getElementById("extraDetails").textContent=p.extra;
+document.getElementById("quantityValue").textContent=quantity;
+
+const sizes=document.getElementById("sizeOptions");
+sizes.innerHTML="";
+
+p.sizes.forEach(size=>{
+const b=document.createElement("button");
+b.textContent=size;
+
+b.onclick=()=>{
+selectedSize=size;
+sizes.querySelectorAll("button").forEach(x=>x.classList.remove("selected"));
+b.classList.add("selected");
+};
+
+sizes.appendChild(b);
+});
+
+updateDetailFavorite();
+showImage();
+renderSimilarProducts();
+
+document.getElementById("detailPage").style.display="block";
+document.body.style.overflow="hidden";
+}
+
+function showImage(){
+const images=selectedProduct.images;
+
+document.getElementById("detailImage").src=images[currentImage];
+document.getElementById("imageCount").textContent=(currentImage+1)+"/"+images.length;
+
+const dots=document.getElementById("galleryDots");
+const thumbs=document.getElementById("galleryThumbnails");
+
+dots.innerHTML="";
+thumbs.innerHTML="";
+
+images.forEach((image,index)=>{
+const dot=document.createElement("button");
+dot.className="dot"+(index===currentImage?" active":"");
+dot.onclick=()=>{currentImage=index;showImage()};
+dots.appendChild(dot);
+
+const thumb=document.createElement("button");
+thumb.className="gallery-thumb"+(index===currentImage?" active":"");
+
+const im=document.createElement("img");
+im.src=image;
+im.alt=selectedProduct.name+" photo "+(index+1);
+
+thumb.appendChild(im);
+thumb.onclick=()=>{currentImage=index;showImage()};
+thumbs.appendChild(thumb);
+});
+}
+
+function renderSimilarProducts(){
+const box=document.getElementById("similarProducts");
+box.innerHTML="";
+
+const similar=products.filter(p=>p.id!==selectedProduct.id).slice(0,2);
+
+similar.forEach(p=>{
+const card=document.createElement("div");
+card.className="similar-card";
+
+const img=document.createElement("img");
+img.src=p.images[0];
+img.alt=p.name;
+
+const info=document.createElement("div");
+info.textContent=p.name;
+
+const price=document.createElement("small");
+price.textContent=money(p.price);
+
+info.appendChild(price);
+card.append(img,info);
+card.onclick=()=>openDetails(p);
+box.appendChild(card);
+});
+}
+
+function changeImage(direction){
+const total=selectedProduct.images.length;
+currentImage=(currentImage+direction+total)%total;
+showImage();
+}
+
+function changeQuantity(change){
+quantity=Math.max(1,Math.min(10,quantity+change));
+document.getElementById("quantityValue").textContent=quantity;
+}
+
+function closeDetails(){
+document.getElementById("detailPage").style.display="none";
+
+if(detailReturnTo==="wishlist"){
+document.body.style.overflow="hidden";
+renderWishlist();
+}else if(detailReturnTo==="cart"){
+document.body.style.overflow="hidden";
+renderCartPage();
+}else{
+document.body.style.overflow="auto";
+}
+}
+
+/* SHARE PRODUCT PHOTO */
+
+async function shareProduct(){
+if(!selectedProduct)return;
+
+const imageURL=selectedProduct.images[currentImage];
+
+try{
+const response=await fetch(imageURL);
+if(!response.ok)throw new Error("Image unavailable");
+
+const blob=await response.blob();
+const file=new File([blob],"vest-voco-product.jpg",{type:blob.type||"image/jpeg"});
+
+if(navigator.canShare&&navigator.canShare({files:[file]})){
+await navigator.share({
+files:[file],
+title:selectedProduct.name,
+text:BRAND_NAME+" - "+selectedProduct.name
+});
+}else{
+throw new Error("Sharing unsupported");
+}
+}catch(error){
+window.open(imageURL,"_blank");
+alert("Open the photo and share it manually.");
+}
+}
+
+/* CHECKOUT */
+
+function buyNow(){
+if(!selectedSize){
+alert("Please select your size first.");
+return;
+}
+
+orderMode="single";
+document.getElementById("detailPage").style.display="none";
+document.getElementById("checkoutOverlay").style.display="flex";
+}
+
+function checkoutCart(){
+if(!cart.length){
+alert("Your cart is empty.");
+return;
+}
+
+orderMode="cart";
+document.getElementById("checkoutOverlay").style.display="flex";
+}
+
+function closeModal(id){
+document.getElementById(id).style.display="none";
+}
+
+function sendWhatsAppOrder(){
+const name=document.getElementById("customerName").value.trim();
+const phone=document.getElementById("customerPhone").value.trim();
+const address=document.getElementById("customerAddress").value.trim();
+const note=document.getElementById("customerNote").value.trim();
+
+if(!name||!phone||!address){
+alert("Please enter your name, phone number and address.");
+return;
+}
+
+if(!/^[0-9+-\s]{10,16}$/.test(phone)){
+alert("Please enter a valid phone number.");
+return;
+}
+
+let message=`Hello ${BRAND_NAME}!
+
+I want to place an order.
+
+Customer Name: ${name}
+Phone: ${phone}
+Delivery Address: ${address}
+
+`;
+
+if(orderMode==="single"&&selectedProduct){
+message+=`Product: ${selectedProduct.name}
+Price: ${money(selectedProduct.price)}
+Size: ${selectedSize}
+Quantity: ${quantity}
+Product Photo Link: ${selectedProduct.images[currentImage]}
+
+`;
+}
+
+if(orderMode==="cart"){
+message+="ORDER ITEMS:\n";
+
+cart.forEach(item=>{
+const p=products.find(x=>x.id===item.id);
+
+if(p){
+message+=`Product: ${p.name}
+Size: ${item.size}
+Quantity: ${item.quantity}
+Price: ${money(p.price*item.quantity)}
+Photo Link: ${p.images[0]}
+
+`;
+}
+});
+
+const total=cart.reduce((s,i)=>{
+const p=products.find(x=>x.id===i.id);
+return s+(p?p.price*i.quantity:0);
+},0);
+
+message+=`Subtotal: ${money(total)}\n`;
+}
+
+if(note){
+message+=`\nAdditional Note: ${note}`;
+}
+
+message+="\nPlease confirm availability and delivery details.";
+
+if(!/^\d{10,15}$/.test(WHATSAPP_NUMBER)){
+alert("Check WhatsApp number in settings.");
+return;
+}
+
+window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank");
+
+closeModal("checkoutOverlay");
+
+if(orderMode==="cart"){
+cart=[];
+saveData();
+renderCartPage();
+}
+}
+
+/* CONTACT LINKS */
+
+const whatsappURL="https://wa.me/"+WHATSAPP_NUMBER;
+
+document.getElementById("footerWhatsApp").href=whatsappURL;
+document.getElementById("floatingWhatsApp").href=whatsappURL;
+document.getElementById("footerInstagram").href=INSTAGRAM_LINK;
+document.getElementById("footerPhone").href="tel:"+PHONE_NUMBER;
+
+/* INITIAL LOAD */
+
+renderProducts();
+updateCounts();
+</script>
+
+</body>
+</html>
+  
